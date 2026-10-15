@@ -59,6 +59,12 @@ Gut zu wissen
 - Fruchtscheiben werden auf ganze Früchte aufgerundet, Eiswürfel auf
   ganze Tüten à 2 kg. So ist immer genug da.
 - Getränke werden immer in Liter angezeigt.
+- Im PDF kann man die Kästchen der Einkaufsliste per Klick (am Computer)
+  bzw. per Fingertipp (am Handy) abhaken. Das klappt z. B. mit Adobe
+  Acrobat Reader (gratis, für Computer und Handy), im Browser (Chrome,
+  Edge, Firefox) und auf iPhone/iPad in der App "Dateien".
+  Damit die Haken erhalten bleiben, die Datei danach speichern.
+  Ausgedruckt kann man die Kästchen ganz normal mit dem Stift abhaken.
 
 
 Rezepte ändern oder neue Drinks hinzufügen

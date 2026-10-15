@@ -631,15 +631,27 @@ def pdf_speichern(pfad, zeitpunkt, csv_name, drinks, portionen, liste, aufteilun
         return Paragraph(escape(text), stil)
 
     class Kaestchen(Flowable):
-        def __init__(self, groesse=4 * mm):
+        """Echtes Ankreuzfeld: im PDF-Programm per Klick bzw. Touch abhakbar.
+        Ausgedruckt sieht es aus wie ein leeres Kaestchen zum Abhaken mit Stift."""
+
+        def __init__(self, nummer, groesse=6 * mm):
             Flowable.__init__(self)
+            self.nummer = nummer
             self.groesse = groesse
             self.width = self.height = groesse
 
         def draw(self):
-            self.canv.setStrokeColor(grau)
-            self.canv.setLineWidth(0.8)
-            self.canv.rect(0, 0, self.groesse, self.groesse)
+            x, y = self.canv.absolutePosition(0, 0)
+            self.canv.acroForm.checkbox(
+                name="abhaken_%d" % self.nummer,
+                tooltip="Abhaken",
+                x=x, y=y, size=self.groesse,
+                buttonStyle="check", checked=False,
+                borderStyle="solid", borderWidth=1,
+                borderColor=grau, fillColor=colors.white,
+                textColor=colors.Color(0.15, 0.55, 0.25),
+                forceBorder=True,
+            )
 
     breite = A4[0] - 36 * mm
     inhalt = [
@@ -667,8 +679,8 @@ def pdf_speichern(pfad, zeitpunkt, csv_name, drinks, portionen, liste, aufteilun
     # Tabelle: Einkaufsliste mit Abhak-Kaestchen
     inhalt.append(p("Einkaufsliste", abschnitt))
     daten = [["", p("Einkaufen", fett), p("Menge", fett), p("Hinweis", fett)]]
-    for name, menge, hinweis in liste:
-        daten.append([Kaestchen(), p(name), p(menge, fett), p(hinweis, klein)])
+    for nummer, (name, menge, hinweis) in enumerate(liste, start=1):
+        daten.append([Kaestchen(nummer), p(name), p(menge, fett), p(hinweis, klein)])
     t = Table(daten, colWidths=[10 * mm, breite * 0.38, breite * 0.2, breite * 0.42 - 10 * mm],
               repeatRows=1)
     t.setStyle(TableStyle([
@@ -680,7 +692,8 @@ def pdf_speichern(pfad, zeitpunkt, csv_name, drinks, portionen, liste, aufteilun
     ]))
     inhalt.append(t)
     inhalt.append(Spacer(1, 2 * mm))
-    inhalt.append(p("Fruchtscheiben und Eis sind großzügig auf ganze Früchte bzw. ganze Tüten aufgerundet.", klein))
+    inhalt.append(p("Fruchtscheiben und Eis sind großzügig auf ganze Früchte bzw. ganze Tüten aufgerundet. "
+                    "Die Kästchen lassen sich im PDF-Programm per Klick bzw. Fingertipp abhaken.", klein))
 
     # Aufteilung nach Drink
     for nummer, (drink, anzahl, posten) in enumerate(aufteilung):
