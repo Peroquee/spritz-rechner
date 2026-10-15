@@ -166,16 +166,13 @@ def menge_formatieren(basis_menge, art, einheit):
     """
     Formatiert eine Gesamtmenge sinnvoll. Es wird immer AUFgerundet, damit
     niemals zu wenig angezeigt wird.
-      Volumen (Basis ml): ab 1 l in Liter, ab 1 cl in cl, sonst ml
+      Volumen (Basis ml): immer in Liter
       Masse   (Basis g) : ab 1 kg in kg, sonst g
       sonst             : Zahl + Einheit aus der CSV
     """
     if art == "volumen":
-        if basis_menge >= 1000:
-            return zahl_formatieren(aufrunden(basis_menge / 1000, Decimal("0.01"))) + " l"
-        if basis_menge >= 10:
-            return zahl_formatieren(aufrunden(basis_menge / 10, Decimal("0.1"))) + " cl"
-        return zahl_formatieren(aufrunden(basis_menge, Decimal("1"))) + " ml"
+        # Immer in Liter, auf 1 ml genau (z. B. 60 cl -> 0,6 l, 288 cl -> 2,88 l)
+        return zahl_formatieren(aufrunden(basis_menge / 1000, Decimal("0.001"))) + " l"
     if art == "masse":
         if basis_menge >= 1000:
             return zahl_formatieren(aufrunden(basis_menge / 1000, Decimal("0.01"))) + " kg"
@@ -383,7 +380,7 @@ def berechnen(drinks, portionen):
                 posten[schluessel] = {
                     "name": z.name, "art": art, "einheit": z.einheit,
                     "einkauf": z.einkaufseinheit, "anzahl_basis": anzahl_basis,
-                    "anzahl_text": ("%s %s" % (zahl_formatieren(z.anzahl_pro_einkauf), z.einheit)
+                    "anzahl_text": (menge_formatieren(anzahl_basis, art, z.einheit)
                                     if z.einkaufseinheit else ""),
                     "gesamt": Decimal("0"),
                 }

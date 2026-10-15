@@ -58,7 +58,7 @@ Gut zu wissen
 -------------
 - Fruchtscheiben werden auf ganze Früchte aufgerundet, Eiswürfel auf
   ganze Tüten à 2 kg. So ist immer genug da.
-- Getränke werden in cl oder Liter angezeigt.
+- Getränke werden immer in Liter angezeigt.
 
 
 Rezepte ändern oder neue Drinks hinzufügen
