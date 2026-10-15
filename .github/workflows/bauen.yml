@@ -1,0 +1,46 @@
+# Baut den SpritzRechner automatisch fuer Windows, macOS und Linux.
+# Starten: auf GitHub im Reiter "Actions" -> "SpritzRechner bauen" -> "Run workflow".
+name: SpritzRechner bauen
+
+on:
+  workflow_dispatch:
+
+jobs:
+  bauen:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            name: Windows
+          - os: macos-latest
+            name: macOS
+          - os: ubuntu-22.04
+            name: Linux
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Werkzeuge installieren
+        run: python -m pip install --upgrade pip pyinstaller reportlab
+
+      - name: Programm bauen
+        run: pyinstaller --noconfirm --clean --onefile --console --name SpritzRechner --collect-all reportlab spritz_rechner.py
+
+      - name: Paket zusammenstellen
+        shell: bash
+        run: |
+          mkdir -p paket/SpritzRechner
+          cp dist/SpritzRechner* rezepte.csv ANLEITUNG.txt paket/SpritzRechner/
+          # ZIP mit Python erstellen, damit die Ausfuehrungsrechte (Mac/Linux) erhalten bleiben
+          python -c "import shutil; shutil.make_archive('SpritzRechner-${{ matrix.name }}', 'zip', 'paket')"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SpritzRechner-${{ matrix.name }}
+          path: SpritzRechner-${{ matrix.name }}.zip
