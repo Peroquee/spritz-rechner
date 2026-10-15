@@ -1,0 +1,89 @@
+SPRITZ-RECHNER - BEDIENUNGSANLEITUNG
+====================================
+
+Was macht das Programm?
+-----------------------
+Du sagst dem Programm, wie viele Spritz-Getränke von jeder Sorte du machen
+möchtest. Das Programm rechnet aus, was du dafür einkaufen musst, und
+speichert eine Einkaufsliste als PDF-Datei zum Ausdrucken.
+
+
+So startest du das Programm
+---------------------------
+WICHTIG: Die Datei "rezepte.csv" muss im selben Ordner liegen wie das
+Programm. Am besten den ganzen Ordner zusammen lassen.
+
+  WINDOWS:
+    Doppelklick auf "SpritzRechner.exe".
+    Beim allerersten Start zeigt Windows evtl. eine blaue Warnung
+    ("Der Computer wurde durch Windows geschützt"). Dann auf
+    "Weitere Informationen" klicken und danach auf "Trotzdem ausführen".
+
+  MAC:
+    Doppelklick auf "SpritzRechner". Es öffnet sich ein Terminal-Fenster.
+    Falls der Mac meldet, dass das Programm nicht geöffnet werden kann:
+    In den "Systemeinstellungen" auf "Datenschutz & Sicherheit" gehen,
+    ganz nach unten scrollen und bei SpritzRechner auf "Trotzdem öffnen"
+    klicken. Danach nochmal doppelklicken.
+
+  LINUX:
+    Ein Terminal im Ordner öffnen und  ./SpritzRechner  eintippen,
+    dann Enter drücken.
+
+
+So bedienst du das Programm
+---------------------------
+1. Es erscheint ein Begrüßungstext. Drücke die Enter-Taste.
+
+2. Für jeden Drink erscheint ein eigenes farbiges Fenster, zum Beispiel
+   orange für Aperol Spritz. Dort steht, welche Eingabe gebraucht wird.
+   Tippe die Anzahl ein (zum Beispiel 12) und drücke Enter.
+   Wenn du von einem Drink keinen brauchst: einfach nur Enter drücken.
+   Wenn du dich vertippst, sagt das Programm Bescheid und fragt nochmal.
+
+3. Danach siehst du eine Zusammenfassung. Wenn alles stimmt, tippe  j
+   und drücke Enter. Wenn etwas falsch ist, tippe  n  und drücke Enter,
+   dann wird alles nochmal abgefragt.
+
+4. Die Einkaufsliste wird angezeigt, als PDF-Datei gespeichert und
+   automatisch geöffnet. Die PDF-Datei liegt im selben Ordner wie das
+   Programm und heißt z. B. "Einkaufsliste_Spritz_2026-10-15_18-30.pdf".
+   Im PDF steht zusätzlich, was in jede Sorte Drink hineinkommt.
+
+5. Zum Schluss fragt das Programm, ob du noch eine Berechnung machen
+   möchtest:  j  = Ja,  n  = Nein (Programm wird beendet).
+
+
+Gut zu wissen
+-------------
+- Fruchtscheiben werden auf ganze Früchte aufgerundet, Eiswürfel auf
+  ganze Tüten à 2 kg. So ist immer genug da.
+- Getränke werden in cl oder Liter angezeigt.
+
+
+Rezepte ändern oder neue Drinks hinzufügen
+------------------------------------------
+Die Rezepte stehen in der Datei "rezepte.csv". Du kannst sie mit Excel,
+LibreOffice oder einem einfachen Texteditor öffnen. Jede Zeile ist eine
+Zutat für einen Drink:
+
+  Drink                       Name des Drinks (z. B. Hugo)
+  Zutat                       Name der Zutat (z. B. Prosecco)
+  Menge pro Portion           Menge für EIN Glas (z. B. 9 oder 1,5)
+  Einheit                     z. B. cl, ml, l, g, kg, Stück, EL
+  Einkaufseinheit             (darf leer sein) was man kauft, z. B. Orange
+  Anzahl pro Einkaufseinheit  (darf leer sein) z. B. 8, wenn man aus
+                              einer Orange 8 Scheiben schneidet
+  Farbe                       (darf leer sein) Farbe des Fensters, z. B. #FFCC99
+
+Ein neuer Drink erscheint automatisch beim nächsten Start.
+Beim Speichern in Excel "CSV (Trennzeichen-getrennt)" wählen.
+
+Eine andere Rezeptdatei kannst du benutzen, indem du sie mit der Maus
+auf das Programm ziehst und dort loslässt.
+
+Falls in der Rezeptdatei ein Fehler ist, zeigt das Programm genau an,
+in welcher Zeile und was nicht stimmt.
+
+Falls die Datei "rezepte.csv" gelöscht wurde, legt das Programm beim
+nächsten Start automatisch wieder die Standard-Rezepte an.
